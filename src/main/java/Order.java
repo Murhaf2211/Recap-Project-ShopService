@@ -8,4 +8,7 @@ public record Order(
         Instant timestamp
 
 ) {
+    public Order(String id, List<Product> products) {
+        this(id, products, OrderStatus.PROCESSING, Instant.now());
+    }
 }
