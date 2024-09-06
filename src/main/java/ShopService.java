@@ -6,9 +6,15 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class ShopService {
-    private ProductRepo productRepo = new ProductRepo();
-    private OrderRepo orderRepo = new OrderMapRepo();
+    private final ProductRepo productRepo = new ProductRepo();
+    private final OrderRepo orderRepo = new OrderMapRepo();
 
+    public ShopService(ProductRepo productRepo, OrderRepo orderRepo) {
+        List<ProductRepo> productRepoList = new ArrayList<>();
+        productRepoList.add(productRepo);
+        List<OrderRepo> orderRepoList = new ArrayList<>();
+        orderRepoList.add(orderRepo);
+    };
     public Order addOrder(List<String> productIds) {
         List<Product> products = new ArrayList<>();
         for (String productId : productIds) {
@@ -35,7 +41,6 @@ public class ShopService {
         }
     }
 
-    // New method to return orders by status
     public List<Order> getOrdersByStatus(OrderStatus status) {
         return orderRepo.getOrders()   // Assuming getAllOrders() exists in OrderRepo
                 .stream()
