@@ -22,6 +22,18 @@ public class ShopService {
 
         return orderRepo.addOrder(newOrder);
     }
+    public void updateOrder(String orderId, OrderStatus newStatus) {
+
+        Optional<Order> existingOrder = orderRepo.getOrderById(orderId);
+
+        if (existingOrder.isPresent()) {
+            Order updatedOrder = existingOrder.get().withStatus(newStatus);
+            orderRepo.updateOrder(updatedOrder);
+        } else {
+            throw new IllegalArgumentException("Order with ID: " + orderId + " not found.");
+        }
+    }
+
     // New method to return orders by status
     public List<Order> getOrdersByStatus(OrderStatus status) {
         return orderRepo.getOrders()   // Assuming getAllOrders() exists in OrderRepo
