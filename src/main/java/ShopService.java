@@ -13,7 +13,7 @@ public class ShopService {
         for (String productId : productIds) {
             Optional<Product> productToOrder = productRepo.getProductById(productId);
             if (productToOrder.isEmpty()) {
-                throw new IllegalArgumentException("Product mit der Id: " + productId + " konnte nicht bestellt werden!");
+                throw new ProductNotFoundException("Product with ID: " + productId + " could not be ordered because it doesn't exist.");
             }
             products.add(productToOrder.get());
         }
